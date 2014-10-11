@@ -10,6 +10,10 @@ import com.helloworldoffice.wt.helloworldoffices.ImageManager;
 /**
  * Created by Edwin on 5/7/2014.
  */
+
+// custom networkimage the determine if we should get the image from the internet
+// or from a local file.
+//
 public class CustomNetworkImageView extends NetworkImageView {
 
     private Bitmap  mLocalBitmap;
