@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.helloworldoffice.wt.helloworldoffices.LocationDetail" >
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/action_map"
+        android:title="@string/action_map"
+        android:orderInCategory="100"
+        android:showAsAction="never">
+
+        <menu>
+            <item android:id="@+id/Map_Normal" android:title="Normal"></item>
+            <item android:id="@+id/Map_Hybrid" android:title="Hybrid"></item>
+            <item android:id="@+id/Map_Satellite" android:title="Satellite"></item>
+            <item android:id="@+id/Map_Terrain" android:title="Tarrain"></item>
+        </menu>
+
+    </item>
+
+</menu>

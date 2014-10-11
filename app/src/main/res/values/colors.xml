@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <color name="NONE">#000000</color>
+
+   <color name="B1">#0088c7</color>
+
+    <color name="B2">#ff500e</color>
+
+    <color name="B3">#a7a7a7</color>
+
+    <color name="B4">#555555</color>
+    
+
+</resources>

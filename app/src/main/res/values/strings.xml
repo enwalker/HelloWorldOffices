@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HelloWorldOffices</string>
+    <string name="title_activity_maps">Hello World Offices</string>
+    <string name="title_activity_location_detail">Location Detail</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="Call">Call</string>
+    <string name="Directions">Directions</string>
+    <string name="title_activity_twitter">Twitter</string>
+    <string name="twitter">Twitter</string>
+    <string name="action_map">Map</string>
+    <string name="Share">Share</string>
+    <string name="OffLine">OffLine</string>
+
+</resources>
