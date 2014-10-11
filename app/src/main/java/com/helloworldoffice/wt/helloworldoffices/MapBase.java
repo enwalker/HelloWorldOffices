@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by Edwin on 10/10/2014.
+ * simple base class for all activities displaying map.
  */
 public class MapBase extends FragmentActivity
 {

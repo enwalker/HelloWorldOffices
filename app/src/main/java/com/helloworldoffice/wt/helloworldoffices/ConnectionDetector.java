@@ -4,6 +4,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+//
+// simple class, for deteching intent
+//
+
 public class ConnectionDetector {
 	
 	private Context _context;

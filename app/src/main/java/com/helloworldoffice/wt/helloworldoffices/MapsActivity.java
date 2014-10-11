@@ -51,7 +51,9 @@ public class MapsActivity extends MapBase {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+//
+//      Grab the list box and set up the handlers.
+//
         OfficeList = (ListView)findViewById(R.id.listView);
 
         OfficeList.setOnItemClickListener( new AdapterView.OnItemClickListener()
@@ -75,8 +77,10 @@ public class MapsActivity extends MapBase {
             }
         });
 
+        // volley
         queue = Volley.newRequestQueue( getApplicationContext() );
 
+        // Twitter button and handler
         Button twitterBtn = (Button)findViewById(R.id.button);
 
         twitterBtn.setOnClickListener( new View.OnClickListener()
@@ -91,16 +95,19 @@ public class MapsActivity extends MapBase {
             }
         });
 
+        // internet connection
         if ( CD == null )
             CD = new ConnectionDetector( getApplicationContext() );
 
+        // get the shared preferences and stuff
         SharedPreferences prefs = getSharedPreferences("HelloWorld", MODE_PRIVATE);
         bOffLine = prefs.getBoolean("bOffLine", false);
 
+        // if there is no internet connection, then force offline mode
         if ( CD.isConnectingToInternet() == false )
             bOffLine = false;
 
-
+        // hide somethings base on the internet available or not
 
         ((LinearLayout)findViewById(R.id.ButtonLayout)).setVisibility( bOffLine ? View.GONE : View.VISIBLE);
         ((LinearLayout)findViewById(R.id.layoutMap)).setVisibility( bOffLine ? View.GONE : View.VISIBLE);
@@ -109,50 +116,46 @@ public class MapsActivity extends MapBase {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_maps, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
+        // check what kind of map, they would like
         if (id == R.id.Map_Normal )
         {
             mMap.setMapType( GoogleMap.MAP_TYPE_NORMAL);
             item.setChecked(true);
-
-
             return true;
         }
 
         if (id == R.id.Map_Satellite )
         {
             mMap.setMapType( GoogleMap.MAP_TYPE_SATELLITE);
-
             return true;
         }
 
         if (id == R.id.Map_Terrain )
         {
             mMap.setMapType( GoogleMap.MAP_TYPE_TERRAIN);
-
             return true;
         }
 
         if (id == R.id.Map_Hybrid )
         {
             mMap.setMapType( GoogleMap.MAP_TYPE_HYBRID);
-
             return true;
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -162,7 +165,9 @@ public class MapsActivity extends MapBase {
     {
         super.onResume();
 
-
+        // when the active is ready, then check if there is an internet connection
+        // if not or user wants to be off line, then load stuff from preferences.
+        // if nothing is stored, then tell the user.
         if ( (bOffLine == false  ) || ( CD.isConnectingToInternet() ) )
         {
             StringRequest Object = new StringRequest(Request.Method.GET,"http://www.helloworld.com/helloworld_locations.json",new Response.Listener<String>()
@@ -246,6 +251,11 @@ public class MapsActivity extends MapBase {
 
     private void LoadMapAndPins( String JsonString )
     {
+        // load the Adapter up
+        // setup the pins
+        // track the bounderies, so that every pin can be shown
+        // load bitmaps, in background, if neccessary
+        // then setup the view.
         JSONObject MainJson = null;
 
         try {

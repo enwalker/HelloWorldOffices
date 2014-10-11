@@ -16,6 +16,7 @@ import java.io.File;
 
 /**
  * Created by Edwin on 10/9/2014.
+ * Simple class to download image if we have to.
  */
 public class ImageManager  extends Object
 {

@@ -54,14 +54,18 @@ public class LocationDetail extends MapBase
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_detail);
 
+        // get the on/off line data
         bOffLine = getIntent().getBooleanExtra("OffLine", false );
 
+        // get the detail that was passed to me.
         try {
             Office = new JSONObject( getIntent().getStringExtra("OfficeData"));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        // some setup stuff, volley and image loader.
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -78,6 +82,7 @@ public class LocationDetail extends MapBase
             }
         });
 
+        // more setup, image, text, buttons, etc...
         CustomNetworkImageView Image = (CustomNetworkImageView)findViewById(R.id.imageView);
 
         TextView Line1 = (TextView)findViewById(R.id.textView);
@@ -120,6 +125,7 @@ public class LocationDetail extends MapBase
             e.printStackTrace();
         }
 
+        // setup call button event,
         callBtn.setOnClickListener( new View.OnClickListener()
         {
             @Override
@@ -138,6 +144,7 @@ public class LocationDetail extends MapBase
             }
         });
 
+        // setup direction event
         directionBtn.setOnClickListener( new View.OnClickListener()
         {
             @Override
@@ -159,6 +166,7 @@ public class LocationDetail extends MapBase
             }
         });
 
+        // setup share button event.
         ShareBtn.setOnClickListener( new View.OnClickListener()
         {
             @Override
@@ -184,6 +192,7 @@ public class LocationDetail extends MapBase
             }
         });
 
+        // show stuff, base on on/off line
         ((LinearLayout)findViewById(R.id.layoutMap)).setVisibility(bOffLine ? View.INVISIBLE : View.VISIBLE);
         directionBtn.setVisibility( bOffLine ? View.GONE : View.VISIBLE );
 
@@ -193,6 +202,8 @@ public class LocationDetail extends MapBase
 
     private void setUpMap()
     {
+        // only setup the map if we have data and we are online.
+        // can't show map, if the user is offline.
 
         if ( Office == null )
             return;
@@ -263,7 +274,6 @@ public class LocationDetail extends MapBase
         {
             mMap.setMapType( GoogleMap.MAP_TYPE_NORMAL);
             item.setChecked(true);
-
             return true;
         }
 
@@ -271,7 +281,6 @@ public class LocationDetail extends MapBase
         {
             mMap.setMapType( GoogleMap.MAP_TYPE_SATELLITE);
             item.setChecked(true);
-
             return true;
         }
 
@@ -279,7 +288,6 @@ public class LocationDetail extends MapBase
         {
             mMap.setMapType( GoogleMap.MAP_TYPE_TERRAIN);
             item.setChecked(true);
-
             return true;
         }
 

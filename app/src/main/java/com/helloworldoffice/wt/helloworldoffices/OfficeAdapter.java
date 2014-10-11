@@ -27,6 +27,7 @@ import java.util.Comparator;
 
 /**
  * Created by Edwin on 10/8/2014.
+ * Simple adapter
  */
 
 public class OfficeAdapter extends BaseAdapter
@@ -44,6 +45,7 @@ public class OfficeAdapter extends BaseAdapter
         this.context = context;
         this.gps = gps;
 
+        // setup
         mRequestQueue = Volley.newRequestQueue(this.context);
 
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
@@ -57,6 +59,10 @@ public class OfficeAdapter extends BaseAdapter
                 return mCache.get(url);
             }
         });
+
+        // all of the json will be passed in, but since we cannot sort a jsonarry
+        // we move everything into our own array, then we sort base on distance.
+        //
 
         OfficeData = new ArrayList<OfficeData>();
 
@@ -74,6 +80,10 @@ public class OfficeAdapter extends BaseAdapter
         }
 
 
+        // now sort base on distance.
+        // since we only have a few items, this will not take long
+        // however, if there are many itmes, we might want to look
+        // at performance
         Collections.sort( OfficeData, new Comparator<OfficeAdapter.OfficeData>()
         {
             @Override
@@ -104,10 +114,7 @@ public class OfficeAdapter extends BaseAdapter
     }
 
     @Override
-    public int getCount() {
-
-        return OfficeData.size();
-    }
+    public int getCount() { return OfficeData.size(); }
 
     @Override
     public Object getItem(int position)
@@ -123,6 +130,8 @@ public class OfficeAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+
+        // the view, get your objects.
         View view = View.inflate(context, R.layout.officerow, null);
 
         TextView text1 = (TextView) view.findViewById(R.id.textView);
@@ -133,8 +142,10 @@ public class OfficeAdapter extends BaseAdapter
 
         try {
 
+            // get the json object from our array
             JSONObject Office = OfficeData.get(position).Data;
 
+            // set the image, the custom image class will load from the internet or local drive.
             Image.setImageUrl(Office.getString("office_image"),mImageLoader);
 
             text1.setTextColor(context.getResources().getColor(R.color.B3));
@@ -143,14 +154,19 @@ public class OfficeAdapter extends BaseAdapter
 
             text1.setText(Office.getString("name"));
             text2.setText(Office.getString("address"));
-            Location TempGPS = new Location("" );
-            TempGPS.setLatitude( Office.getDouble("latitude"));
-            TempGPS.setLongitude( Office.getDouble("longitude"));
 
+            // do we have a valid gps data
             if ( gps != null )
             {
+                // get GPS info of the office.
+                Location TempGPS = new Location("" );
+                TempGPS.setLatitude( Office.getDouble("latitude"));
+                TempGPS.setLongitude( Office.getDouble("longitude"));
+
+                // how far away are we
                 float dis = (float)(gps.distanceTo(TempGPS)/1000);
 
+                // display distance
                 if ( bShowMiles == false )
                   text3.setText("Distance " + String.format("%.1f",dis)+ " km");
                 else
@@ -173,7 +189,12 @@ public class OfficeAdapter extends BaseAdapter
 
     }
 
-    public class OfficeData
+    public void setShowMiles( boolean bValue )
+    {
+        bShowMiles = bValue;
+    }
+
+    private class OfficeData
     {
         public JSONObject Data;
     }
